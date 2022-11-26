@@ -1,0 +1,11 @@
+{
+  "devDependencies": {
+    "cypress": "^11.2.0"
+  },
+  "name": "cypressapp",
+  "version": "1.0.0",
+  "description": "cypress automate testing",
+  "main": "index.js",
+  "author": "dipa ferdian",
+  "license": "MIT"
+}
