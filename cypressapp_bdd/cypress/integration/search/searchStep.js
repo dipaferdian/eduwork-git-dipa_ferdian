@@ -1,14 +1,14 @@
 import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
-
+import SearchPage from './searchPage';
 
 Given("I'm open dasboard page", ()=>{
-    cy.visit('http://zero.webappsecurity.com/index.html')
+    SearchPage.visit()
 })
 
 When("I input field data on search box", ()=>{
-    cy.get('#searchTerm').type('online{enter}')
+    SearchPage.search('online')
 })
 
 Then("I should see the results", ()=>{
-    cy.get('h2').contains('Search Results:')
+    SearchPage.result()
 })
