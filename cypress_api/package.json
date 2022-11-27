@@ -4,6 +4,8 @@
     "cy:run": "cypress run --config integrationFolder=cypress/integration"
   },
   "devDependencies": {
+    "@cypress/schema-tools": "^4.7.9",
+    "chai-json-schema": "^1.5.1",
     "cypress": "^4.3.1"
   }
 }

@@ -11,7 +11,21 @@
 //
 // -- This is a parent command --
 // Cypress.Commands.add("login", (email, password) => { ... })
-//
+
+Cypress.Commands.add('loginViaAPI', (
+   username = Cypress.env('userName'),
+   password = Cypress.env('userPassword')
+ ) => {
+   cy.request('POST', `${Cypress.env('apiUrl')}/users/login`, {
+     username: username,
+     password: password,
+   }).then((response) => {
+     cy.setCookie('sessionId', response.body.sessionId)
+     cy.setCookie('userId', response.body.userId)
+     cy.setCookie('userName', response.body.userName)
+   })
+})
+
 //
 // -- This is a child command --
 // Cypress.Commands.add("drag", { prevSubject: 'element'}, (subject, options) => { ... })
