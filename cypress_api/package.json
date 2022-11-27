@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "cy:open": "cypress open --config integrationFolder=cypress/integration",
+    "cy:run": "cypress run --config integrationFolder=cypress/integration"
+  },
+  "devDependencies": {
+    "cypress": "^4.3.1"
+  }
+}
