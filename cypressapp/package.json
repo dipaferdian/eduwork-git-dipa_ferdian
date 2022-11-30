@@ -11,5 +11,10 @@
   },
   "cypress-cucumber-preprocessor": {
     "nonGlobalStepDefinitions": true
+  },
+  "dependencies": {
+    "cypress-localstorage-commands": "^2.2.1",
+    "g": "^2.0.1",
+    "js-cookie": "^3.0.1"
   }
 }

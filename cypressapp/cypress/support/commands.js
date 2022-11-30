@@ -10,6 +10,7 @@
 //
 //
 // -- This is a parent command --
+
 Cypress.Commands.add('login', (user_object) => {
 
     const { username, password } = user_object
@@ -55,6 +56,7 @@ Cypress.Commands.add('payment', (payment_object) => {
     return cy.wait('@post')
 
 })
+
 //
 // -- This is a child command --
 // Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })

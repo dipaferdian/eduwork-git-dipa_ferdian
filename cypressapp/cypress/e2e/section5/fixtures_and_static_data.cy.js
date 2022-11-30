@@ -1,35 +1,56 @@
 /// <reference types="cypress" />
 
-const Baseurl = 'https://www.saucedemo.com/';
 
-describe('Login with fixtures data', ()=>{
-      
-    it('should try login', () => {
+const Baseurl = 'https://www.saucedemo.com/';
+var key_local_storage = null;
+var value_local_storage = null;
+var current_username = null;
+
+const Cookie = {
+    key: "",
+    value: ""
+}
+
+function setLocalStorage() {
+    window.localStorage.setItem(key_local_storage, value_local_storage);
+}
+
+function getLocalStorage(key) {
+    key_local_storage = key
+    value_local_storage = window.localStorage.getItem(key)
+}
+
+
+before(() => {
+    cy.fixture("user").then(user => {
+
+        const username = user.username
+        const password = user.password
+
+        Cookie.key = "session-username";
+        Cookie.value = username;
+
         cy.visit(Baseurl, { timeout: 10000 })
 
-        cy.fixture("user").then(user =>{
+        cy.get('#user-name').type(username)
+        cy.get('#password').type(password)
 
-            const username = user.username
-            const password = user.password
-
-            cy.get('#user-name').type(username)
-            cy.get('#password').type(password)
-
-            cy.get('#login-button').click()
-
-            cy.url().should('include', '/inventory.html')
-        })
-    });
+        cy.get('#login-button').click()
+    })
 })
 
-describe('Failed login', ()=>{
+beforeEach(() => {
+    cy.setCookie(Cookie.key, Cookie.value);
+})
+
+describe('Failed login', () => {
 
     it('should load saucedemo.com website', () => {
-        cy.visit(Baseurl, { timeout: 10000 }) 
+        cy.visit(Baseurl, { timeout: 10000 })
     });
 
     it('should try login with empty username and password', () => {
-        cy.fixture("user").then(user =>{
+        cy.fixture("user").then(user => {
 
             const username = user.username
             const password = user.password
@@ -40,7 +61,7 @@ describe('Failed login', ()=>{
             cy.get('#login-button').click()
 
             cy.get('[data-test="error"]').invoke('attr', 'data-test', 'error')
-              .should('have.text', 'Epic sadface: Username is required')
+                .should('have.text', 'Epic sadface: Username is required')
 
             cy.get('.error-button').should('have.class', 'error-button')
         })
@@ -48,7 +69,7 @@ describe('Failed login', ()=>{
 
 
     it('should try login with empty username', () => {
-        cy.fixture("user").then(user =>{
+        cy.fixture("user").then(user => {
 
             const username = user.username
             const password = user.password
@@ -59,14 +80,14 @@ describe('Failed login', ()=>{
             cy.get('#login-button').click()
 
             cy.get('[data-test="error"]').invoke('attr', 'data-test', 'error')
-              .should('have.text', 'Epic sadface: Username is required')
-            
+                .should('have.text', 'Epic sadface: Username is required')
+
             cy.get('.error-button').should('have.class', 'error-button')
         })
     });
 
     it('should try login with empty password', () => {
-        cy.fixture("user").then(user =>{
+        cy.fixture("user").then(user => {
 
             const username = user.username
             const password = user.password
@@ -77,14 +98,14 @@ describe('Failed login', ()=>{
             cy.get('#login-button').click()
 
             cy.get('[data-test="error"]').invoke('attr', 'data-test', 'error')
-              .should('have.text', 'Epic sadface: Password is required')
-            
+                .should('have.text', 'Epic sadface: Password is required')
+
             cy.get('.error-button').should('have.class', 'error-button')
         })
     });
 
     it('should try login with wrong username and password', () => {
-        cy.fixture("user").then(user =>{
+        cy.fixture("user").then(user => {
 
             const username = user.username + 'wrong'
             const password = user.password + 'wrong'
@@ -95,14 +116,14 @@ describe('Failed login', ()=>{
             cy.get('#login-button').click()
 
             cy.get('[data-test="error"]')
-            .invoke('attr', 'data-test', 'error')
-            .should('have.text', 'Epic sadface: Username and password do not match any user in this service')
+                .invoke('attr', 'data-test', 'error')
+                .should('have.text', 'Epic sadface: Username and password do not match any user in this service')
             cy.get('.error-button').should('have.class', 'error-button')
         })
     });
 
     it('should try login with wrong username', () => {
-        cy.fixture("user").then(user =>{
+        cy.fixture("user").then(user => {
 
             const username = user.username + 'wrong'
             const password = user.password
@@ -113,14 +134,14 @@ describe('Failed login', ()=>{
             cy.get('#login-button').click()
 
             cy.get('[data-test="error"]')
-            .invoke('attr', 'data-test', 'error')
-            .should('have.text', 'Epic sadface: Username and password do not match any user in this service')
+                .invoke('attr', 'data-test', 'error')
+                .should('have.text', 'Epic sadface: Username and password do not match any user in this service')
             cy.get('.error-button').should('have.class', 'error-button')
         })
     });
 
     it('should try login with wrong password', () => {
-        cy.fixture("user").then(user =>{
+        cy.fixture("user").then(user => {
 
             const username = user.username
             const password = user.password + 'wrong'
@@ -131,161 +152,76 @@ describe('Failed login', ()=>{
             cy.get('#login-button').click()
 
             cy.get('[data-test="error"]')
-            .invoke('attr', 'data-test', 'error')
-            .should('have.text', 'Epic sadface: Username and password do not match any user in this service')
+                .invoke('attr', 'data-test', 'error')
+                .should('have.text', 'Epic sadface: Username and password do not match any user in this service')
             cy.get('.error-button').should('have.class', 'error-button')
         })
     });
 })
 
 
-describe('List Product', ()=>{
+describe('Checkout Product', () => {
 
-    beforeEach(() => {
-        cy.visit(Baseurl, { timeout: 10000 }) 
-    })
+    it.only('should get list of product', () => {
+        cy.get('.inventory_list').each((child_item) => {
+            cy.wrap(child_item.children('div.inventory_item')).should('have.class', 'inventory_item')
+            cy.wrap(child_item.children('div.inventory_item')).should('have.length', 6)
 
-    it('should get list of product', () => {
-        cy.fixture("user").then(user =>{
-
-            const username = user.username
-            const password = user.password
-
-            cy.get('#user-name').type(username)
-            cy.get('#password').type(password)
-
-            cy.get('#login-button').click()
-
-            cy.get('.inventory_list').each((child_item)=>{
-                cy.wrap(child_item.children('div.inventory_item')).should('have.class', 'inventory_item')
-                cy.wrap(child_item.children('div.inventory_item')).should('have.length', 6)
-                
-                cy.get('.inventory_item_img').each((child_item)=>{
-                    cy.get('img').should('have.class', 'inventory_item_img')
-                })
+            cy.get('.inventory_item_img').each((child_item) => {
+                cy.get('img').should('have.class', 'inventory_item_img')
             })
         })
     });
 
-    it('should add product to cart', () => {
-        cy.fixture("user").then(user =>{
+    it.only('should add product to cart', () => {
+        cy.get('button').should('contain', 'Add to cart')
 
-            const username = user.username
-            const password = user.password
-
-            cy.get('#user-name').type(username)
-            cy.get('#password').type(password)
-
-            cy.get('#login-button').click()
-
-            cy.get('button').should('contain', 'Add to cart')
-
-            cy.get('.btn_inventory').click({multiple: true})
+        cy.get('.btn_inventory').click({ multiple: true }).then(() => {
+            getLocalStorage('cart-contents')
         })
     });
 
 
-    it('should view product on chart', () => {
-        cy.fixture("user").then(user =>{
+    it.only('should view product on chart', () => {
+        setLocalStorage();
+        cy.get('#shopping_cart_container').get('a')
+            .invoke('attr', 'id', 'shopping_cart_link')
 
-            const username = user.username
-            const password = user.password
+        cy.get('#shopping_cart_container > a > span')
+            .should('have.text', 6)
 
-            cy.get('#user-name').type(username)
-            cy.get('#password').type(password)
+        cy.get("#shopping_cart_container > a").click()
 
-            cy.get('#login-button').click()
-
-            cy.get('button').should('contain', 'Add to cart')
-            cy.get('.btn_inventory').click({multiple: true})
-
-
-            cy.get('#shopping_cart_container').get('a')
-              .invoke('attr', 'id', 'shopping_cart_link')
-              
-            cy.get('#shopping_cart_container > a > span')
-              .should('have.text', 6)
-              .click()
-        })
     });
 
-    it('should able to checkout', () => {
-        cy.fixture("user").then(user =>{
+    it.only('should able to checkout', () => {
+        setLocalStorage();
+        cy.url().should('include', '/cart.html')
 
-            const username = user.username
-            const password = user.password
-
-            cy.get('#user-name').type(username)
-            cy.get('#password').type(password)
-
-            cy.get('#login-button').click()
-
-            cy.get('button').should('contain', 'Add to cart')
-            cy.get('.btn_inventory').click({multiple: true})
-
-
-            cy.get('#shopping_cart_container').get('a')
-              .invoke('attr', 'id', 'shopping_cart_link')
-              
-            cy.get('#shopping_cart_container > a > span')
-              .should('have.text', 6)
-              .click()
-
-              cy.url().should('include', '/cart.html')
-
-
-            cy.get('#checkout').should('contain', 'Checkout').click()
-        })
+        cy.get('#checkout').should('contain', 'Checkout').click()
     });
 
 
-    it('should able to fill checkout form and click continue, redirect to checkout overview ', () => {
-        cy.fixture("user").then(user =>{
+    it.only('should able to fill checkout form and click continue, redirect to checkout overview ', () => {
+        cy.get('#first-name').type('dipa')
+        cy.get('#last-name').type('ferdian')
+        cy.get('#postal-code').type('16610')
 
-            const username = user.username
-            const password = user.password
+        cy.get('[value="Continue"]').invoke('attr', 'value', 'Continue')
+            .get('#continue').click()
 
-            cy.get('#user-name').type(username)
-            cy.get('#password').type(password)
+        cy.url().should('include', '/checkout-step-two.html')
 
-            cy.get('#login-button').click()
+        cy.get('#finish').should('contain', 'Finish').click()
 
-            cy.get('button').should('contain', 'Add to cart')
-            cy.get('.btn_inventory').click({multiple: true})
-
-
-            cy.get('#shopping_cart_container').get('a')
-              .invoke('attr', 'id', 'shopping_cart_link')
-              
-            cy.get('#shopping_cart_container > a > span')
-              .should('have.text', 6)
-              .click()
-
-              cy.url().should('include', '/cart.html')
+        cy.url().should('include', '/checkout-complete.html')
 
 
-            cy.get('#checkout').should('contain', 'Checkout').click()
+        cy.get('#header_container > div.header_secondary_container > span')
+            .invoke('attr', 'class', 'title')
+            .should('contain', 'Checkout: Complete!')
+            .get('.complete-header')
+            .contains('THANK YOU FOR YOUR ORDER')
 
-            cy.get('#first-name').type('dipa')
-            cy.get('#last-name').type('ferdian')
-            cy.get('#postal-code').type('16610')
-
-            cy.get('[value="Continue"]').invoke('attr', 'value', 'Continue')
-              .get('#continue').click()
-
-            cy.url().should('include', '/checkout-step-two.html')
-
-            cy.get('#finish').should('contain', 'Finish').click()
-
-            cy.url().should('include', '/checkout-complete.html')
-
-
-            cy.get('#header_container > div.header_secondary_container > span')
-               .invoke('attr', 'class', 'title')
-               .should('contain', 'Checkout: Complete!')
-               .get('.complete-header')
-               .contains('THANK YOU FOR YOUR ORDER')
-            
-        })
-    });
+    })
 })
