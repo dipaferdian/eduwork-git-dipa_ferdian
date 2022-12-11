@@ -6,28 +6,28 @@ class ViewSectionStep extends ViewSection {
       static Step() {
 
             And("I can see some title and description", () => {
-                  this.text_element_get(".title",
+                  this.check_text_with_get_and_should_have_text(".title",
                         this.options.text = 'Midtrans Pillow'
                   )
-                  this.view_text_with_contains(
+                  this.check_text_with_contains(
                         this.options.text = 'Disclaimer: This is not a real transaction.No funds will be transfered out of your account. You should sleep with a proper pillow to refrain yourself from injury.'
                   )
-                  this.view_text_with_contains(
+                  this.check_text_with_contains(
                         this.options.text = 'Get cozy with our new pillow!'
                   )
             })
 
             And("I can see buy now button view", () => {
-                  this.check_button_with_get(".btn.buy",
+                  this.check_button_with_get_and_should_contain(".btn.buy",
                         this.options.text = 'BUY NOW'
                   )
             })
 
             Then('I can see sign up button and text description', () => {
-                  this.text_element_get(".desc-cta",
+                  this.check_text_with_get_and_should_have_text(".desc-cta",
                         this.options.text = 'Ready to integrate SNAP?'
                   )
-                  this.check_button_with_get('.btn.btn-signup',
+                  this.check_button_with_get_and_should_contain('.btn.btn-signup',
                         this.options.text = 'SIGN UP'
                   )
             })

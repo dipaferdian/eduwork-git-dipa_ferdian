@@ -1,4 +1,4 @@
-import { Given, And } from 'cypress-cucumber-preprocessor/steps';
+import { Given, And, Before, After } from 'cypress-cucumber-preprocessor/steps';
 import DashboarPage from './dashboardPage';
 
 
@@ -11,7 +11,7 @@ class DashboardStep extends DashboarPage {
             })
 
             And("I can see dasboard page", () => {
-                  this.view_url_with_url(this.options.url = 'demo.midtrans.com')
+                  this.check_url_with_url_and_should(this.options.url = 'demo.midtrans.com')
             })
       }
 }

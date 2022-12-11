@@ -1,16 +1,17 @@
-
-
 class Cypress {
 
       constructor() {
-            this.multiple = false,
-            this.force = false,
+            this.multiple = false;
+            this.force = false;
             this.number_element = 0;
             this.url = '';
-            this.text ='',
-            this.interval = 50000,
+            this.text = '';
+            this.interval = 50000;
             this.type_element = '';
             this.number = 0;
+            this.value = '';
+            this.setName = '';
+            this.getName = '';
       }
 
 
@@ -23,8 +24,13 @@ class Cypress {
                   text: this.text,
                   interval: this.interval,
                   type_element: this.type_element,
-                  number: this.number
+                  number: this.number,
+                  value: this.value
             }
+      }
+
+      static state() {
+           localStorage.setItem('setName', this.options.setName)
       }
 
       /*
@@ -37,28 +43,38 @@ class Cypress {
       /*
             Check URL Component
       */
-      static view_url_with_url() {
+      static check_url_with_url_and_should() {
             cy.url().should('include', this.options.url)
       }
 
       /*
             Check text Component
       */
-      static text_element_get(element) {
+      static check_text_with_get_and_should_have_text(element) {
             cy.get(element).should('have.text', this.options.text)
       }
 
-      /*
-            Check Button Component
-      */
-      static view_text_with_contains() {
+      static check_text_with_contains() {
             cy.contains(this.options.text)
       }
+
+
+      /*
+            Check value Component
+      */
+      static check_value_with_get_and_should_have_value(element) {
+            cy.get(element).should('have.value', this.options.value)
+      }
+
+      static check_value_with_get_contains_and_should_be_visible(element){
+            cy.get(element).contains(this.options.type_element, this.options.value).should('be.visible')
+      }
+
 
       /*
             Check Button Component
       */
-      static check_button_with_get(elemment) {
+      static check_button_with_get_and_should_contain(elemment) {
             cy.get(elemment, { timeout: this.options.timeout }).should('contain', this.options.text)
       }
 
@@ -66,7 +82,7 @@ class Cypress {
       /*
             Click Button Component
       */
-      static click_button_with_get(element) {
+      static click_button_with_get_eq_and_click(element) {
             cy.get(element).eq(this.options.number_element).click()
       }
 
@@ -74,16 +90,35 @@ class Cypress {
             cy.contains(element, this.options.text).click()
       }
 
-      static click_button_with_contains_and_visit(element) {
+      /*
+          Visit Url Component
+      */
+
+      static visit_with_contains_and_visit(element) {
             cy.contains(element, this.options.text).visit(this.options.url)
       }
 
+      /*
+            Check Total Element Component
+      */
+      static check_total_element_with_get_find_and_should_have_length(element) {
+            cy.get(element).find(this.options.type_element).should('have.length', this.options.number)
+      }
 
       /*
-            Checnk Total Element Component
+            Type Input Component
       */
-      static check_total_element(element){
-            cy.get(element).find(this.options.type_element).should('have.length', this.options.number)
+
+      static type_input_with_get_and_type_value(element) {
+            cy.get(element).type(this.options.value)
+      }
+
+      /*
+           Clear Value Component
+      */
+
+      static clear_input_with_get_and_clear(element) {
+            cy.get(element).clear()
       }
 }
 
