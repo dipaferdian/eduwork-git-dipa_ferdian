@@ -1,0 +1,19 @@
+{
+  "name": "cypressapp",
+  "version": "1.0.0",
+  "description": "cypress automate testing",
+  "main": "index.js",
+  "author": "dipa ferdian",
+  "license": "MIT",
+  "scripts": {
+    "cy:open": "cypress open",
+    "cy:run": "cypress run"
+  },
+  "devDependencies": {
+    "cypress": "^4.3.1",
+    "cypress-cucumber-preprocessor": "^4.3.1"
+  },
+  "cypress-cucumber-preprocessor": {
+    "nonGlobalStepDefinitions": true
+  }
+}
