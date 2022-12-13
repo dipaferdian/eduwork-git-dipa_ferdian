@@ -65,6 +65,10 @@ class PositiveStep extends PositiveCase {
                   )
             })
 
+            Then('I should change input name with empty value', () => {
+                  this.clear_input_with_get_async_and_val('[data-reactid=".0.0.1.0.3.0.0.0.1.0"]')
+            })
+
             Then('I should able type input field email', () => {
                   this.clear_input_with_get_and_clear('[data-reactid=".0.0.1.0.3.0.0.1.1.0"]')
                   this.type_input_with_get_and_type_value('[data-reactid=".0.0.1.0.3.0.0.1.1.0"]',
@@ -79,6 +83,11 @@ class PositiveStep extends PositiveCase {
                   )
             })
 
+
+            Then('I should change input phone number with empty value', () => {
+                  this.clear_input_with_get_and_clear('[data-reactid=".0.0.1.0.3.0.0.2.1.0"]')
+            })
+
             Then('I should able type input field city', () => {
                   this.clear_input_with_get_and_clear('[data-reactid=".0.0.1.0.3.0.0.3.1.0"]')
                   this.type_input_with_get_and_type_value('[data-reactid=".0.0.1.0.3.0.0.3.1.0"]',
@@ -86,11 +95,20 @@ class PositiveStep extends PositiveCase {
                   )
             })
 
+
+            Then('I should change input city with empty value', () => {
+                  this.clear_input_with_get_and_clear('[data-reactid=".0.0.1.0.3.0.0.3.1.0"]')
+            })
+
             Then('I should able type input field address', () => {
                   this.clear_input_with_get_and_clear('[data-reactid=".0.0.1.0.3.0.0.4.1.0"]')
                   this.type_input_with_get_and_type_value('[data-reactid=".0.0.1.0.3.0.0.4.1.0"]',
                         this.options.value = 'Kp. Kabandungan 2'
                   )
+            })
+
+            Then('I should change input address with empty value', () => {
+                  this.clear_input_with_get_and_clear('[data-reactid=".0.0.1.0.3.0.0.4.1.0"]')
             })
 
             Then('I should able type input field postal code', () => {
@@ -103,6 +121,75 @@ class PositiveStep extends PositiveCase {
             Then('I should able click checkout button', () => {
                   this.click_button_with_contains_and_click('.cart-checkout',
                         this.options.text = 'CHECKOUT'
+                  )
+            })
+
+            Then('I should see popup payment method', () => {
+                  this.check_text_with_javascript_costum('#snap-midtrans',
+                        this.options.text = 'Credit/debit card',
+                        this.options.timeout = 30000
+                  )
+
+                  this.check_text_with_javascript_costum('#snap-midtrans',
+                        this.options.text = 'Bank transfer',
+                        this.options.timeout = 30000
+                  )
+
+                  this.check_text_with_javascript_costum('#snap-midtrans',
+                        this.options.text = 'GoPay/other e-Wallets',
+                        this.options.timeout = 30000
+                  )
+
+
+                  this.check_text_with_javascript_costum('#snap-midtrans',
+                        this.options.text = 'KlikBCA',
+                        this.options.timeout = 30000
+                  )
+
+
+                  this.check_text_with_javascript_costum('#snap-midtrans',
+                        this.options.text = 'BCA KlikPay',
+                        this.options.timeout = 30000
+                  )
+
+                  this.check_text_with_javascript_costum('#snap-midtrans',
+                        this.options.text = 'OCTO Clicks',
+                        this.options.timeout = 30000
+                  )
+
+                  this.check_text_with_javascript_costum('#snap-midtrans',
+                        this.options.text = 'Danamon Online Banking',
+                        this.options.timeout = 30000
+                  )
+
+                  this.check_text_with_javascript_costum('#snap-midtrans',
+                        this.options.text = 'BRImo',
+                        this.options.timeout = 30000
+                  )
+
+                  this.check_text_with_javascript_costum('#snap-midtrans',
+                        this.options.text = 'Indomaret',
+                        this.options.timeout = 30000
+                  )
+
+                  this.check_text_with_javascript_costum('#snap-midtrans',
+                        this.options.text = 'Alfa Group',
+                        this.options.timeout = 30000
+                  )
+
+                  this.check_text_with_javascript_costum('#snap-midtrans',
+                        this.options.text = 'Kredivo',
+                        this.options.timeout = 30000
+                  )
+
+                  this.check_text_with_javascript_costum('#snap-midtrans',
+                        this.options.text = 'Akulaku PayLater',
+                        this.options.timeout = 30000
+                  )
+
+                  this.check_text_with_javascript_costum('#snap-midtrans',
+                        this.options.text = 'UOB EZ Pay',
+                        this.options.timeout = 30000
                   )
             })
       }

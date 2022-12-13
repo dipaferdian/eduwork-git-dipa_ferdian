@@ -1,3 +1,4 @@
+
 class Cypress {
 
       constructor() {
@@ -10,8 +11,6 @@ class Cypress {
             this.type_element = '';
             this.number = 0;
             this.value = '';
-            this.setName = '';
-            this.getName = '';
       }
 
 
@@ -30,7 +29,7 @@ class Cypress {
       }
 
       static state() {
-           localStorage.setItem('setName', this.options.setName)
+            localStorage.setItem('setName', this.options.setName)
       }
 
       /*
@@ -51,13 +50,27 @@ class Cypress {
             Check text Component
       */
       static check_text_with_get_and_should_have_text(element) {
-            cy.get(element).should('have.text', this.options.text)
+            cy.get(element, { timeout: this.options.timeout }).should('have.text', this.options.text)
       }
 
       static check_text_with_contains() {
-            cy.contains(this.options.text)
+            cy.contains(this.options.text, { timeout: this.options.timeout })
       }
 
+      static check_text_with_javascript_costum(element) {
+            cy.get(element).then(cy.wrap).then((element) => {
+
+                cy.get(element.children('#app').prevObject.prevObject[0].body.querySelector("#snap-midtrans").contentWindow.document.body.children.app.children).should('contain', this.options.text)
+            })
+      }
+
+      static check_text_with_javascript_costum_2(element) {
+            cy.get(element).then(cy.wrap).then((element) => {
+                  cy.get(element.children('#app').prevObject.prevObject[0].body.querySelector("#snap-midtrans").contentWindow.document).then((res) => {
+                        cy.wrap(res.selector.body).should('contain', this.options.text)
+                  })
+            })
+      }
 
       /*
             Check value Component
@@ -66,8 +79,20 @@ class Cypress {
             cy.get(element).should('have.value', this.options.value)
       }
 
-      static check_value_with_get_contains_and_should_be_visible(element){
+      static check_value_with_get_contains_and_should_be_visible(element) {
             cy.get(element).contains(this.options.type_element, this.options.value).should('be.visible')
+      }
+
+      static check_value_with_get_and_should_not_be_empty(element) {
+            cy.get(element).should('not.be.empty')
+      }
+
+      static check_value_is_character_only(element) {
+            cy.get(element).contains('match', /^.*[a-zA-Z]/)
+      }
+
+      static check_value_is_numeric_only(element) {
+            cy.get(element).contains('match', /^.*\d+/)
       }
 
 
@@ -88,6 +113,21 @@ class Cypress {
 
       static click_button_with_contains_and_click(element) {
             cy.contains(element, this.options.text).click()
+      }
+
+      static click_button_with_javascript_costum(element) {
+            cy.get(element).then(cy.wrap).then((element) => {
+
+                cy.get(element.children('#app').prevObject.prevObject[0].body.querySelector("#snap-midtrans").contentWindow.document.body.children.app.children).should('contain', this.options.text).click()
+            })
+      }
+
+      static click_button_with_javascript_costum_2(element) {
+            cy.get(element).then(cy.wrap).then((element) => {
+                  cy.get(element.children('#app').prevObject.prevObject[0].body.querySelector("#snap-midtrans").contentWindow.document).then((res) => {
+                        cy.wrap(res.selector.body).contains(this.options.text).click()
+                  })
+            })
       }
 
       /*
@@ -119,6 +159,12 @@ class Cypress {
 
       static clear_input_with_get_and_clear(element) {
             cy.get(element).clear()
+      }
+
+      static clear_input_with_get_async_and_val(element) {
+            cy.get(element).then(elem => {
+                  elem.val('');
+            });
       }
 }
 

@@ -17,7 +17,7 @@ Feature: Dashboard Page, View Section, SignUp Account, Checkout Product
         Then I should able click sign up button
         Then I should able register page
 
-@focus   @regression @smoke @positive
+    @regression @smoke @positive
     Scenario: Checkout Product
         And I click buy now button
         Then I should see checkout section
@@ -27,9 +27,43 @@ Feature: Dashboard Page, View Section, SignUp Account, Checkout Product
         Then I should see amount product
         Then I should see total amount product
         Then I should able type input field name
+        Then I should change input name with empty value
         Then I should able type input field email
         Then I should able type input field phone number
+        Then I should change input phone number with empty value
         Then I should able type input field city
+        Then I should change input city with empty value
         Then I should able type input field address
+        Then I should change input address with empty value
         Then I should able type input field postal code
         Then I should able click checkout button
+        Then I should see popup payment method
+
+    @regression @smoke @negative
+    Scenario: Checkout Product
+        And I click buy now button
+        Then I should able change input amount
+        Then I should change input name with all numeric value
+        Then I should change input email with all numeric value
+        Then I should change input change input phone number with character value
+        Then I should change input city with all numeric value
+        Then I should change input addresses with all numeric value
+        Then I should change postal code with character value
+        Then I should not to able checkout with invalid input data
+
+    @regression @smoke
+    Scenario: Payment Product
+        And I click checkout button
+        Then I can see list payment method
+        Then I can see total payment amount
+        Then I able to click bank transfer button
+        Then I can see list of bank transfer
+        Then I see bca bank text field
+
+    @focus @regression @smoke
+    Scenario: BCA
+        And I click checkout button
+        Then I able to click bank transfer button
+        Then I able to click bca payment
+        Then I can see how to pay text field
+        Then I able to click how to pay
