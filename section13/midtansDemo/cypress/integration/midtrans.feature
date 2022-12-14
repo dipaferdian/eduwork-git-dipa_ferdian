@@ -58,12 +58,59 @@ Feature: Dashboard Page, View Section, SignUp Account, Checkout Product
         Then I can see total payment amount
         Then I able to click bank transfer button
         Then I can see list of bank transfer
-        Then I see bca bank text field
 
-    @focus @regression @smoke
+    @regression @smoke
     Scenario: BCA
         And I click checkout button
         Then I able to click bank transfer button
         Then I able to click bca payment
         Then I can see how to pay text field
         Then I able to click how to pay
+        Then I able to see step to payment
+        Then I able to see virtual account number
+        Then I able to see back to merchant text field
+        Then I able to click back to merchant button
+
+    @regression @smoke
+    Scenario: Mandiri
+        And I click checkout button
+        Then I able to click bank transfer button
+        Then I able to click madiri payment
+        Then I can see how to pay text field
+        Then I able to click how to pay
+        Then I able to see company code text field
+        Then I able to see back to merchant text field
+        Then I able to click back to merchant button
+
+    @regression @smoke
+    Scenario: Permata
+        And I click checkout button
+        Then I able to click bank transfer button
+        Then I able to click permata payment
+        Then I can see how to pay text field
+        Then I able to click how to pay
+        Then I able to see company code text field
+        Then I able to see back to merchant text field
+        Then I able to click back to merchant button
+
+    @regression @smoke
+    Scenario: BRI
+        And I click checkout button
+        Then I able to click bank transfer button
+        Then I able to click bri payment
+        Then I can see how to pay text field
+        Then I able to click how to pay
+        Then I able to see company code text field
+        Then I able to see back to merchant text field
+        Then I able to click back to merchant button
+
+    @regression @smoke
+    Scenario: BNI
+        And I click checkout button
+        Then I able to click bank transfer button
+        Then I able to click bni payment
+        Then I can see how to pay text field
+        Then I able to click how to pay
+        Then I able to see company code text field
+        Then I able to see back to merchant text field
+        Then I able to click back to merchant button

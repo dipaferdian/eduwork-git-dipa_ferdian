@@ -60,7 +60,7 @@ class Cypress {
       static check_text_with_javascript_costum(element) {
             cy.get(element).then(cy.wrap).then((element) => {
 
-                cy.get(element.children('#app').prevObject.prevObject[0].body.querySelector("#snap-midtrans").contentWindow.document.body.children.app.children).should('contain', this.options.text)
+                  cy.get(element.children('#app').prevObject.prevObject[0].body.querySelector("#snap-midtrans").contentWindow.document.body.children.app.children).should('contain', this.options.text)
             })
       }
 
@@ -68,6 +68,22 @@ class Cypress {
             cy.get(element).then(cy.wrap).then((element) => {
                   cy.get(element.children('#app').prevObject.prevObject[0].body.querySelector("#snap-midtrans").contentWindow.document).then((res) => {
                         cy.wrap(res.selector.body).should('contain', this.options.text)
+                  })
+            })
+      }
+
+      static check_text_with_javascript_costum_3(element) {
+            cy.get(element).then(cy.wrap).then((element) => {
+                  cy.get(element.children('#app').prevObject.prevObject[0].body.querySelector("#snap-midtrans").contentWindow.document).then((res) => {
+                        cy.wrap(res.selector.body.children.app.children.application.children[1].children[0].children[0].children[2].children[1].children[0]).should('be.visible');
+                  })
+            })
+      }
+
+      static check_text_with_javascript_costum_4(element) {
+            cy.get(element).then(cy.wrap).then((element) => {
+                  cy.get(element.children('#app').prevObject.prevObject[0].body.querySelector("#snap-midtrans").contentWindow.document).then((res) => {
+                        cy.wrap(res.selector.body).should('contain', this.options.text);
                   })
             })
       }
@@ -118,7 +134,7 @@ class Cypress {
       static click_button_with_javascript_costum(element) {
             cy.get(element).then(cy.wrap).then((element) => {
 
-                cy.get(element.children('#app').prevObject.prevObject[0].body.querySelector("#snap-midtrans").contentWindow.document.body.children.app.children).should('contain', this.options.text).click()
+                  cy.get(element.children('#app').prevObject.prevObject[0].body.querySelector("#snap-midtrans").contentWindow.document.body.children.app.children).should('contain', this.options.text).click()
             })
       }
 
@@ -126,6 +142,15 @@ class Cypress {
             cy.get(element).then(cy.wrap).then((element) => {
                   cy.get(element.children('#app').prevObject.prevObject[0].body.querySelector("#snap-midtrans").contentWindow.document).then((res) => {
                         cy.wrap(res.selector.body).contains(this.options.text).click()
+                  })
+            })
+      }
+
+
+      static click_button_with_javascript_costum_3(element) {
+            cy.get(element).then(cy.wrap).then((element) => {
+                  cy.get(element.children('#app').prevObject.prevObject[0].body.querySelector("#snap-midtrans").contentWindow.document).then((res) => {
+                        cy.wrap(res.selector.body.children.app.children.application.children[1].children[0].children[1]).click()
                   })
             })
       }

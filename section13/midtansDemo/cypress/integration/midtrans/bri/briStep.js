@@ -1,9 +1,7 @@
-import { And, Then } from 'cypress-cucumber-preprocessor/steps';
-import BcaSection from "./bcaSection";
+import BriSection from '../bri/briSection'
 
 
-
-class BcaStep extends BcaSection {
+class BriStep extends BriSection {
 
       static Step() {
 
@@ -19,7 +17,6 @@ class BcaStep extends BcaSection {
                   )
             })
 
-
             Then('I able to click bank transfer button', () => {
                   this.click_button_with_javascript_costum('#snap-midtrans',
                         this.options.text = 'Bank transfer',
@@ -27,14 +24,14 @@ class BcaStep extends BcaSection {
                   )
             })
 
-            Then('I able to click bca payment', () => {
+            Then('I able to click bri payment', () => {
                   this.click_button_with_javascript_costum_2('#snap-midtrans',
-                        this.options.text = 'BCA',
+                        this.options.text = 'Mandiri',
                         this.options.timeout = 30000
                   )
             })
 
-            Then('I can see how to pay text field', ()=>{
+            Then('I can see how to pay text field', () => {
                   this.check_text_with_javascript_costum_2('#snap-midtrans',
                         this.options.text = 'How to pay',
                         this.options.timeout = 30000
@@ -48,14 +45,7 @@ class BcaStep extends BcaSection {
                   )
             })
 
-            Then('I able to see step to payment', () => {
-                  this.check_text_with_javascript_costum_2('#snap-midtrans',
-                        this.options.text = 'on the main menu.',
-                        this.options.timeout = 30000
-                  )
-            })
-
-            Then('I able to see virtual account number', () => {
+            Then('I able to see company code text field', () => {
                   this.check_text_with_javascript_costum_3('#snap-midtrans',
                         this.options.timeout = 30000
                   )
@@ -69,14 +59,16 @@ class BcaStep extends BcaSection {
             })
 
             Then('I able to click back to merchant button', () => {
-                  this. click_button_with_javascript_costum_3('#snap-midtrans',
+                  this.click_button_with_javascript_costum_3('#snap-midtrans',
                         this.options.value = 'Back to merchant',
                         this.options.timeout = 30000,
                         this.options.force = true
                   )
             })
+
       }
 }
 
 
-export default BcaStep
+
+export default BriStep
